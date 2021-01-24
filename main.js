@@ -1,9 +1,14 @@
+/* eslint-disable no-restricted-properties */
+function unify(e) {
+  return e.changedTouches ? e.changedTouches[0] : e;
+}
+
+const NF = 30;
+
 class VanillaSwipe {
   constructor(_C) {
     this.container = _C;
-    this.N = _C.children.length;
-    const NF = 30;
-    const TFN = {
+    this.TFN = {
       /* can remove these if not used
             'linear': function(k) { return k },
             'ease-in': function(k, e = 1.675) {
@@ -15,107 +20,117 @@ class VanillaSwipe {
             'ease-in-out': function(k) {
               return .5*(Math.sin((k - .5)*Math.PI) + 1)
             }, */
-      'bounce-out': function (k, a = 2.75, b = 1.5) {
-        return (
-          1 -
-          Math.pow(1 - k, a) *
-            Math.abs(Math.cos(Math.pow(k, b) * (n + 0.5) * Math.PI))
-        );
-      },
+      'bounce-out': (k, a = 2.75, b = 1.5) => (
+        1
+          - Math.pow(1 - k, a)
+            * Math.abs(Math.cos(Math.pow(k, b) * (this.n + 0.5) * Math.PI))
+      ),
     };
 
-    let i = 0;
-    let x0 = null;
-    let locked = false;
-    let w;
-    let ini;
-    let fin;
-    let rID = null;
-    let anf;
-    let n;
+    this.size = this.size.bind(this);
+    this.lock = this.lock.bind(this);
+    this.drag = this.drag.bind(this);
+    this.move = this.move.bind(this);
 
-    function stopAni() {
-      cancelAnimationFrame(rID);
-      rID = null;
-    }
-
-    function ani(cf = 0) {
-      _C.style.setProperty(
-        '--i',
-        ini + (fin - ini) * TFN['bounce-out'](cf / anf)
-      );
-
-      if (cf === anf) {
-        stopAni();
-        return;
-      }
-
-      rID = requestAnimationFrame(ani.bind(this, ++cf));
-    }
-
-    function unify(e) {
-      return e.changedTouches ? e.changedTouches[0] : e;
-    }
-
-    function lock(e) {
-      x0 = unify(e).clientX;
-      locked = true;
-    }
-
-    function drag(e) {
-      e.preventDefault();
-
-      if (locked) {
-        const dx = unify(e).clientX - x0;
-        const f = +(dx / w).toFixed(2);
-
-        _C.style.setProperty('--i', i - f);
-      }
-    }
-
-    const move = (e) => {
-      if (locked) {
-        const dx = unify(e).clientX - x0;
-        const s = Math.sign(dx);
-        let f = +((s * dx) / w).toFixed(2);
-
-        ini = i - s * f;
-
-        if ((i > 0 || s < 0) && (i < this.N - 1 || s > 0) && f > 0.2) {
-          i -= s;
-          f = 1 - f;
-        }
-
-        fin = i;
-        anf = Math.round(f * NF);
-        n = 2 + Math.round(f);
-        ani();
-        x0 = null;
-        locked = false;
-      }
-    };
-
-    function size() {
-      w = window.innerWidth;
-    }
-
-    size();
+    this.size();
+    this.bindEventListeners();
     this.refreshNumImages();
+  }
 
-    addEventListener('resize', size, false);
+  stopAni() {
+    cancelAnimationFrame(this.rID);
+    this.rID = null;
+  }
 
-    _C.addEventListener('mousedown', lock, false);
-    _C.addEventListener('touchstart', lock, false);
+  ani(cf = 0) {
+    this.container.style.setProperty(
+      '--i',
+      this.ini + (this.fin - this.ini) * this.TFN['bounce-out'](cf / this.anf),
+    );
 
-    _C.addEventListener('mousemove', drag, false);
-    _C.addEventListener('touchmove', drag, false);
+    if (cf === this.anf) {
+      this.stopAni();
+      return;
+    }
 
-    _C.addEventListener('mouseup', move, false);
-    _C.addEventListener('touchend', move, false);
+    this.rID = requestAnimationFrame(this.ani.bind(this, cf + 1));
+  }
+
+  lock(e) {
+    this.x0 = unify(e).clientX;
+    this.locked = true;
+  }
+
+  drag(e) {
+    e.preventDefault();
+
+    if (this.locked) {
+      const dx = unify(e).clientX - this.x0;
+      const f = +(dx / this.w).toFixed(2);
+
+      this.container.style.setProperty('--i', this.i - f);
+    }
+  }
+
+  move(e) {
+    if (this.locked) {
+      const dx = unify(e).clientX - this.x0;
+      const s = Math.sign(dx);
+      let f = +((s * dx) / this.w).toFixed(2);
+
+      this.ini = this.i - s * f;
+
+      if ((this.i > 0 || s < 0) && (this.i < this.N - 1 || s > 0) && f > 0.2) {
+        this.i -= s;
+        f = 1 - f;
+      }
+
+      this.fin = this.i;
+      this.anf = Math.round(f * NF);
+      this.n = 2 + Math.round(f);
+      this.ani();
+      this.x0 = null;
+      this.locked = false;
+    }
+  }
+
+  size() {
+    this.w = window.innerWidth;
+  }
+
+  bindEventListeners() {
+    window.addEventListener('resize', this.size, false);
+
+    this.container.addEventListener('mousedown', this.lock, false);
+    this.container.addEventListener('touchstart', this.lock, false);
+
+    this.container.addEventListener('mousemove', this.drag, false);
+    this.container.addEventListener('touchmove', this.drag, false);
+
+    this.container.addEventListener('mouseup', this.move, false);
+    this.container.addEventListener('touchend', this.move, false);
+  }
+
+  unbindEventListeners() {
+    window.removeEventListener('resize', this.size, false);
+
+    this.container.removeEventListener('mousedown', this.lock, false);
+    this.container.removeEventListener('touchstart', this.lock, false);
+
+    this.container.removeEventListener('mousemove', this.drag, false);
+    this.container.removeEventListener('touchmove', this.drag, false);
+
+    this.container.removeEventListener('mouseup', this.move, false);
+    this.container.removeEventListener('touchend', this.move, false);
   }
 
   refreshNumImages() {
     this.N = this.container.children.length;
+    this.i = 0;
+    this.x0 = null;
+    this.locked = false;
+    this.rID = null;
+    this.container.style.setProperty('--i', 0);
     this.container.style.setProperty('--n', this.N);
   }
 }
