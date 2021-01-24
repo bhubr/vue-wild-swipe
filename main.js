@@ -1,6 +1,7 @@
 class VanillaSwipe {
   constructor(_C) {
-    const N = _C.children.length;
+    this.container = _C;
+    this.N = _C.children.length;
     const NF = 30;
     const TFN = {
       /* can remove these if not used
@@ -72,7 +73,7 @@ class VanillaSwipe {
       }
     }
 
-    function move(e) {
+    const move = (e) => {
       if (locked) {
         const dx = unify(e).clientX - x0;
         const s = Math.sign(dx);
@@ -80,7 +81,7 @@ class VanillaSwipe {
 
         ini = i - s * f;
 
-        if ((i > 0 || s < 0) && (i < N - 1 || s > 0) && f > 0.2) {
+        if ((i > 0 || s < 0) && (i < this.N - 1 || s > 0) && f > 0.2) {
           i -= s;
           f = 1 - f;
         }
@@ -92,14 +93,14 @@ class VanillaSwipe {
         x0 = null;
         locked = false;
       }
-    }
+    };
 
     function size() {
       w = window.innerWidth;
     }
 
     size();
-    _C.style.setProperty('--n', N);
+    this.refreshNumImages();
 
     addEventListener('resize', size, false);
 
@@ -111,6 +112,11 @@ class VanillaSwipe {
 
     _C.addEventListener('mouseup', move, false);
     _C.addEventListener('touchend', move, false);
+  }
+
+  refreshNumImages() {
+    this.N = this.container.children.length;
+    this.container.style.setProperty('--n', this.N);
   }
 }
 

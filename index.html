@@ -81,6 +81,7 @@
         img.src = `https://via.placeholder.com/1200x800?text=Added+at+${Date.now()}`;
         container.appendChild(img);
         const swiper = swipers[targetSwipeId];
+        swiper.refreshNumImages();
         console.log(swiper);
       }
 
