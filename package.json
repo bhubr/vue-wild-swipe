@@ -1,0 +1,16 @@
+{
+  "name": "vanillajs-swipe",
+  "version": "1.0.0",
+  "description": "> :medal: All credits go to Ana Tudor for her post on [CSS Tricks](https://css-tricks.com/): [Simple Swipe with Vanilla JavaScript](https://css-tricks.com/simple-swipe-with-vanilla-javascript/)",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "node-sass style.scss style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^5.0.0"
+  }
+}
