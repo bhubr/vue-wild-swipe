@@ -75,6 +75,7 @@ class VanillaSwipe {
   move(e) {
     if (this.locked) {
       const dx = unify(e).clientX - this.x0;
+      if (dx === 0) return;
       const s = Math.sign(dx);
       let f = +((s * dx) / this.w).toFixed(2);
 
@@ -86,7 +87,7 @@ class VanillaSwipe {
       }
 
       this.fin = this.i;
-      this.anf = Math.round(f * NF);
+      this.anf = Math.min(NF, Math.abs(Math.round(f * NF)));
       this.n = 2 + Math.round(f);
       this.ani();
       this.x0 = null;
