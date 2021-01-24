@@ -57,12 +57,13 @@
       </div>
     </div>
 
-    <script src="main.js"></script>
-    <script>
+    <script src="main.js" type="module"></script>
+    <script type="module">
+      import VanillaSwipe from './main.js';
       const container1 = document.querySelector('#swiper1 .container');
       const container2 = document.querySelector('#swiper2 .container');
-      swipe(container1);
-      swipe(container2);
+      new VanillaSwipe(container1);
+      new VanillaSwipe(container2);
     </script>
   </body>
 </html>
