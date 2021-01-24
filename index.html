@@ -57,13 +57,36 @@
       </div>
     </div>
 
+    <div class="buttons">
+      <button type="button" data-swiper="swiper1">add img in #1</button>
+      <button type="button" data-swiper="swiper2">add img in #2</button>
+    </div>
+
     <script src="main.js" type="module"></script>
     <script type="module">
       import VanillaSwipe from './main.js';
       const container1 = document.querySelector('#swiper1 .container');
       const container2 = document.querySelector('#swiper2 .container');
-      new VanillaSwipe(container1);
-      new VanillaSwipe(container2);
+      const swipers = {
+        swiper1: new VanillaSwipe(container1),
+        swiper2: new VanillaSwipe(container2),
+      };
+
+      const buttons = document.querySelectorAll('.buttons button');
+
+      function addImage(e) {
+        const targetSwipeId = e.target.dataset.swiper;
+        const container = document.querySelector(`#${targetSwipeId} .container`);
+        const img = document.createElement('IMG');
+        img.src = `https://via.placeholder.com/1200x800?text=Added+at+${Date.now()}`;
+        container.appendChild(img);
+        const swiper = swipers[targetSwipeId];
+        console.log(swiper);
+      }
+
+      for (let button of buttons) {
+        button.addEventListener('click', addImage);
+      }
     </script>
   </body>
 </html>
