@@ -1,8 +1,8 @@
-const _C = document.querySelector('.container'),
-  N = _C.children.length,
-  NF = 30,
-  TFN = {
-    /* can remove these if not used
+const _C = document.querySelector('.container');
+const N = _C.children.length;
+const NF = 30;
+const TFN = {
+  /* can remove these if not used
 				'linear': function(k) { return k },
 				'ease-in': function(k, e = 1.675) {
 					return Math.pow(k, e)
@@ -13,24 +13,24 @@ const _C = document.querySelector('.container'),
 				'ease-in-out': function(k) {
 					return .5*(Math.sin((k - .5)*Math.PI) + 1)
 				}, */
-    'bounce-out': function (k, a = 2.75, b = 1.5) {
-      return (
-        1 -
-        Math.pow(1 - k, a) *
-          Math.abs(Math.cos(Math.pow(k, b) * (n + 0.5) * Math.PI))
-      );
-    },
-  };
+  'bounce-out': function (k, a = 2.75, b = 1.5) {
+    return (
+      1
+        - Math.pow(1 - k, a)
+          * Math.abs(Math.cos(Math.pow(k, b) * (n + 0.5) * Math.PI))
+    );
+  },
+};
 
-let i = 0,
-  x0 = null,
-  locked = false,
-  w,
-  ini,
-  fin,
-  rID = null,
-  anf,
-  n;
+let i = 0;
+let x0 = null;
+let locked = false;
+let w;
+let ini;
+let fin;
+let rID = null;
+let anf;
+let n;
 
 function stopAni() {
   cancelAnimationFrame(rID);
@@ -61,8 +61,8 @@ function drag(e) {
   e.preventDefault();
 
   if (locked) {
-    let dx = unify(e).clientX - x0,
-      f = +(dx / w).toFixed(2);
+    const dx = unify(e).clientX - x0;
+    const f = +(dx / w).toFixed(2);
 
     _C.style.setProperty('--i', i - f);
   }
@@ -70,9 +70,9 @@ function drag(e) {
 
 function move(e) {
   if (locked) {
-    let dx = unify(e).clientX - x0,
-      s = Math.sign(dx),
-      f = +((s * dx) / w).toFixed(2);
+    const dx = unify(e).clientX - x0;
+    const s = Math.sign(dx);
+    let f = +((s * dx) / w).toFixed(2);
 
     ini = i - s * f;
 
