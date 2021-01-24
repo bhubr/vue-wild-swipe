@@ -1,10 +1,9 @@
 * {
-  margin: 0;
-}
+  margin: 0; }
 
-body {
-  overflow-x: hidden;
-}
+.swipe-wrapper {
+  max-width: 100%;
+  overflow-x: hidden; }
 
 .container {
   --n: 1;
@@ -15,11 +14,9 @@ body {
   width: calc(var(--n) * 100%);
   height: 50vw;
   max-height: 100vh;
-  transform: translate(calc(var(--i, 0) / var(--n) * -100%));
-}
-.container img {
-  width: 100%;
-  width: calc(100% / var(--n));
-  user-select: none;
-  pointer-events: none;
-}
+  transform: translate(calc(var(--i, 0) / var(--n) * -100%)); }
+  .container img {
+    width: 100%;
+    width: calc(100% / var(--n));
+    user-select: none;
+    pointer-events: none; }
