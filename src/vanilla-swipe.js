@@ -125,8 +125,8 @@ class VanillaSwipe {
     this.container.removeEventListener('touchend', this.move, false);
   }
 
-  refreshNumImages() {
-    this.N = this.container.children.length;
+  refreshNumImages(numImages) {
+    this.N = numImages || this.container.children.length;
     this.i = 0;
     this.x0 = null;
     this.locked = false;
