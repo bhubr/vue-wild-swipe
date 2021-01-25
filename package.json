@@ -1,6 +1,6 @@
 {
   "name": "vue-wild-swipe",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "",
   "main": "dist/vue-wild-swipe.ssr.js",
   "browser": "dist/vue-wild-swipe.esm.js",

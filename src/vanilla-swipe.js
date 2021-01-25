@@ -31,6 +31,7 @@ class VanillaSwipe {
     this.lock = this.lock.bind(this);
     this.drag = this.drag.bind(this);
     this.move = this.move.bind(this);
+    this.keyup = this.keyup.bind(this);
 
     this.size();
     this.bindEventListeners();
@@ -50,6 +51,9 @@ class VanillaSwipe {
 
     if (cf === this.anf) {
       this.stopAni();
+      if (typeof this.onChangeIndex === 'function') {
+        this.onChangeIndex(this.i);
+      }
       return;
     }
 
@@ -75,7 +79,7 @@ class VanillaSwipe {
   move(e) {
     if (this.locked) {
       const dx = unify(e).clientX - this.x0;
-      if (dx === 0) return;
+      if (Math.abs(dx) < 1) return;
       const s = Math.sign(dx);
       let f = +((s * dx) / this.w).toFixed(2);
 
@@ -92,6 +96,34 @@ class VanillaSwipe {
       this.ani();
       this.x0 = null;
       this.locked = false;
+    }
+  }
+
+  prev() {
+    if (this.i <= 0) return;
+    this.ini = this.i;
+    this.fin = this.i - 1;
+    this.i -= 1;
+    this.anf = NF;
+    this.n = 2;
+    this.ani();
+  }
+
+  next() {
+    if (this.i >= this.N - 1) return;
+    this.ini = this.i;
+    this.fin = this.i + 1;
+    this.i += 1;
+    this.anf = NF;
+    this.n = 2;
+    this.ani();
+  }
+
+  keyup(e) {
+    if (e.keyCode === 37) {
+      this.prev();
+    } else if (e.keyCode === 39) {
+      this.next();
     }
   }
 
@@ -123,6 +155,14 @@ class VanillaSwipe {
 
     this.container.removeEventListener('mouseup', this.move, false);
     this.container.removeEventListener('touchend', this.move, false);
+  }
+
+  bindKeyEventListeners() {
+    window.addEventListener('keyup', this.keyup, false);
+  }
+
+  unbindKeyEventListeners() {
+    window.removeEventListener('keyup', this.keyup, false);
   }
 
   refreshNumImages(numImages) {
