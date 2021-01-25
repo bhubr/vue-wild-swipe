@@ -1,6 +1,6 @@
 <script>
 import Vue from 'vue';
-import VueSimpleSwipe from '@/vue-simple-swipe.vue';
+import VueWildSwipe from '@/vue-wild-swipe.vue';
 
 const imageSets = [
   [
@@ -19,7 +19,7 @@ const imageSets = [
 export default Vue.extend({
   name: 'ServeDev',
   components: {
-    VueSimpleSwipe
+    VueWildSwipe
   },
   data: function() {
     return {
@@ -42,7 +42,7 @@ export default Vue.extend({
 
 <template>
   <div id="app">
-    <vue-simple-swipe v-if="showSwiper" :images="images" />
+    <vue-wild-swipe v-if="showSwiper" :images="images" />
 
     <div class="controls">
       <button type="button" @click="changeImages">Change images</button>

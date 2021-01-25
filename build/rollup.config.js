@@ -70,7 +70,7 @@ if (!argv.format || argv.format === 'es') {
     ...baseConfig,
     external,
     output: {
-      file: 'dist/vue-simple-swipe.esm.js',
+      file: 'dist/vue-wild-swipe.esm.js',
       format: 'esm',
       exports: 'named',
     },
@@ -104,7 +104,7 @@ if (!argv.format || argv.format === 'cjs') {
     external,
     output: {
       compact: true,
-      file: 'dist/vue-simple-swipe.ssr.js',
+      file: 'dist/vue-wild-swipe.ssr.js',
       format: 'cjs',
       name: 'VueSimpleSwipe',
       exports: 'named',
@@ -133,7 +133,7 @@ if (!argv.format || argv.format === 'iife') {
     external,
     output: {
       compact: true,
-      file: 'dist/vue-simple-swipe.min.js',
+      file: 'dist/vue-wild-swipe.min.js',
       format: 'iife',
       name: 'VueSimpleSwipe',
       exports: 'named',

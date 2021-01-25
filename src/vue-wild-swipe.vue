@@ -2,7 +2,7 @@
 import VanillaSwipe from "./vanilla-swipe";
 
 export default {
-  name: "VueSimpleSwipe", // vue component name
+  name: "VueWildSwipe", // vue component name
   props: ["images"],
   watch: {
     images: function (newImages, oldImages) {
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <template>
-  <div class="vue-simple-swipe">
+  <div class="vue-wild-swipe">
     <div class="container" ref="container">
       <img :src="url" v-for="url in images" :key="url" />
     </div>
@@ -29,7 +29,7 @@ export default {
 </template>
 
 <style scoped>
-.vue-simple-swipe {
+.vue-wild-swipe {
   max-width: 100%;
   overflow-x: hidden;
   height: 100%;

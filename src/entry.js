@@ -1,5 +1,5 @@
 // Import vue component
-import component from '@/vue-simple-swipe.vue';
+import component from '@/vue-wild-swipe.vue';
 
 // install function executed by Vue.use()
 const install = function installVueSimpleSwipe(Vue) {

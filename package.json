@@ -1,13 +1,14 @@
 {
-  "name": "vue-simple-swipe",
-  "version": "1.0.0",
+  "name": "vue-wild-swipe",
+  "version": "0.9.1",
   "description": "",
-  "main": "dist/vue-simple-swipe.ssr.js",
-  "browser": "dist/vue-simple-swipe.esm.js",
-  "module": "dist/vue-simple-swipe.esm.js",
-  "unpkg": "dist/vue-simple-swipe.min.js",
+  "main": "dist/vue-wild-swipe.ssr.js",
+  "browser": "dist/vue-wild-swipe.esm.js",
+  "module": "dist/vue-wild-swipe.esm.js",
+  "unpkg": "dist/vue-wild-swipe.min.js",
   "files": [
     "dist/*",
+    "src/**/*.js",
     "src/**/*.vue"
   ],
   "scripts": {
