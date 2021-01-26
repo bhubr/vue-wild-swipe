@@ -2,6 +2,24 @@
 
 > :trophy: All credits go to Ana Tudor for her post on [CSS Tricks](https://css-tricks.com/): [Simple Swipe with Vanilla JavaScript](https://css-tricks.com/simple-swipe-with-vanilla-javascript/)
 
+This is a simple swipe component for Vue.js. Online demo [here](https://bhubr.github.io/vue-wild-swipe-example/).
+
+## What's here
+
+* [Caveats](#install)
+* [Install](#install)
+* [Example](#example)
+* [Props](#props)
+* [Changelog](#changelog)
+
+## Caveats
+
+As I'm rather new to Vue, and don't know (yet) how to package icons along with the JS component, you need to add a CSS file and a `fonts` folder to your project.
+
+You can find them in the `src/styles` folder of this repo, or from the [example's repo](https://github.com/bhubr/vue-wild-swipe-example/tree/master/src/styles).
+
+Just import the `icons.css` file from your main component, as shown [here](https://github.com/bhubr/vue-wild-swipe-example/blob/master/src/App.vue#L44)
+
 ## Install
 
 ```
@@ -78,3 +96,19 @@ body {
 }
 </style>
 ```
+
+## Props
+
+The component accepts the following props:
+
+* `images`: an array of image URLs (required)
+* `arrows`: a boolean indicating whether to show the previous & next arrows (optional, default `true`)
+* `bullets`: a boolean indicating whether to show bullets beneath the images (optional, default `true`)
+* `keys`: a boolean indicating if left & right directions should show the previous & next image (optional, default `true`)
+
+## Changelog
+
+* 0.9.1 First working version
+* 0.9.2 Add example to readme
+* 0.9.3 Add arrows, bullets, key controls
+* 0.9.4 Improve readme (document props, caveats, reference online demo)
