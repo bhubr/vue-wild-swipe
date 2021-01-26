@@ -6,7 +6,7 @@ This is a simple swipe component for Vue.js. Online demo [here](https://bhubr.gi
 
 ## What's here
 
-* [Caveats](#install)
+* [Caveats](#caveats)
 * [Install](#install)
 * [Example](#example)
 * [Props](#props)
@@ -85,10 +85,6 @@ export default Vue.extend({
 <style>
 body {
   margin: 0;
-}
-
-#app {
-  height: 80vh;
 }
 
 .controls {
